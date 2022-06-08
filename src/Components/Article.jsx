@@ -20,13 +20,15 @@ class Article extends React.Component {
     render() {
       const { article } = this.props;
       return (
-        <div>
-          <h1>
-            {article.title}       
-          </h1>
-          <button onClick={this.handleClick}> {this.state.isOpen ? "Close": "Open"} </button>
-          {this.state.isOpen && <section>{article.text}</section>}
-          <h2 id="dataText"> creation date: {this.state.date}</h2>
+        <div className='card mb-3'>
+          <h3 className='card-header'>
+            {article.title}    
+            <button className='btn btn-primary btn-sm float-end' onClick={this.handleClick}> {this.state.isOpen ? "Close": "Open"} </button>   
+          </h3>
+          <div className="card-body">
+            <p className='card-subtitle text-muted mb-3'> creation date: {this.state.date}</p>
+            {this.state.isOpen && <section className='card-text mb-3'>{article.text}</section>}
+          </div>
         </div>
       );
     }
