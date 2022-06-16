@@ -21,9 +21,10 @@ import Article from "./Article";
         const articles = this.props.articles.map(function(article,index){
             return (
                 <li  key={article.id} className='d-block'>
-                    <Article article={article} 
-                             isOpen={self.state.openArticleId === article.id}
-                             onButtonClick={ ()=>self.handleClick(article.id)} /> 
+                    <Article 
+                        article={article} 
+                        isOpen={self.state.openArticleId === article.id}
+                        onButtonClick={ ()=>self.handleClick(article.id)} /> 
                  </li>
             ) 
         });
