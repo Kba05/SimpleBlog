@@ -7,11 +7,8 @@ class Article extends React.Component {
       console.log("----------------------","constructor")
       super(props);
       this.state = {
-        isOpen: props.defaultOpen,
         date: new Date().toDateString()
       };
-      // обязательно должны забиндить контекст иначе не получиться вызвать метод setState()
-      this.handleClick = this.handleClick.bind(this); 
     }
 
     UNSAFE_componentWillMount(){
@@ -20,9 +17,6 @@ class Article extends React.Component {
 
     UNSAFE_componentWillReceiveProps(nextProps){
       console.log("----------------------","WillReceiveProps")
-      if(nextProps.defaultOpen !== this.props.defaultOpen) this.setState({
-        isOpen : nextProps.defaultOpen
-      })
     }
 
     UNSAFE_componentWillUpdate(){
@@ -35,27 +29,24 @@ class Article extends React.Component {
 
     shouldComponentUpdate(nextProps,nextState){
       console.log("----------------------","shouldComponentUpdate")
-      return this.state.isOpen !== nextState.isOpen
-    }
-
-    handleClick() {
-      this.setState({ isOpen: !this.state.isOpen });  //переприсваем значения в состоянии
+      return this.props.isOpen !== nextProps.isOpen
     }
   
     render() { 
       console.log("----------------------","render")
-      const { article } = this.props;
+      const { article,isOpen, onButtonClick } = this.props;
+      console.log(isOpen)
       return (
         <div className='card mb-3'>
           <h3 className='card-header'>
             {article.title}    
-            <button className='btn btn-primary btn-sm float-end' onClick={this.handleClick}> {this.state.isOpen ? "Close": "Open"} </button>   
+            <button className='btn btn-primary btn-sm float-end' onClick={onButtonClick}> {isOpen ? "Close": "Open"} </button>   
           </h3>
           <div className="card-body">
             <p className='card-subtitle text-muted mb-3'> 
               creation date: {this.state.date} 
             </p>
-            {this.state.isOpen && <section className='card-text mb-3'>{article.text} <Tic/> </section>}
+            {isOpen && <section className='card-text mb-3'>{article.text} <Tic/> </section>}
           </div>
         </div>
       );
