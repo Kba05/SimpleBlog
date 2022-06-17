@@ -23,9 +23,9 @@ export default class Timer extends  React.Component {
   
     render() {
       return (
-        <div>
-          Секунды: {this.state.seconds}
-        </div>
+        <>
+          {this.state.seconds} сек.
+        </>
       );
     }
   }

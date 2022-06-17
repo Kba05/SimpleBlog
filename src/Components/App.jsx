@@ -12,19 +12,16 @@ class App extends React.Component {
     this.state = {
       reverted: false
     }
-    
     this.articles = [...data];
     this.revert = this.revert.bind(this);
   }
   
-
   revert = () => {
     this.articles.reverse();
     this.setState({
       reverted: !this.state.reverted
     })
   }
-
 
   render(){
     return (

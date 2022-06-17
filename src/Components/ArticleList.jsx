@@ -2,17 +2,17 @@ import React from 'react';
 import Article from "./Article";
 
 
- class ArticleList extends React.Component {
+class ArticleList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          openArticleId:null
+            openArticleId:null
         };
     }
 
     handleClick(openArticleId){
         this.setState({
-             openArticleId: this.state.openArticleId === openArticleId ? null : openArticleId
+             openArticleId: this.state.openArticleId === openArticleId ? null : openArticleId,
         }) 
     }
 
@@ -23,8 +23,8 @@ import Article from "./Article";
                 <li  key={article.id} className='d-block'>
                     <Article 
                         article={article} 
-                        isOpen={self.state.openArticleId === article.id}
-                        onButtonClick={ ()=>self.handleClick(article.id)} /> 
+                        onButtonClick={ ()=>self.handleClick(article.id)}
+                        isOpenComment={self.state.openArticleId === article.id} /> 
                  </li>
             ) 
         });

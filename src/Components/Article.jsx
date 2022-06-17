@@ -1,33 +1,15 @@
 import React from 'react';
-import Tic from "./Timer"
+import Comment from './Comment';
 
 
 class Article extends React.Component {
     constructor(props) {
-      console.log("----------------------","constructor")
       super(props);
       this.state = {
         date: new Date().toDateString(),
         like: 0,
-        isLiked: false,
-        isOpenComment:false
+        isLiked: false
       };
-    }
-
-    UNSAFE_componentWillMount(){
-      console.log("----------------------","will mount")
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps){
-      console.log("----------------------","WillReceiveProps")
-    }
-
-    UNSAFE_componentWillUpdate(){
-      console.log("----------------------","WillUpdate")
-    }
-    
-    componentWillUnmount(){
-      console.log("----------------------","will Unmount")
     }
 
     // shouldComponentUpdate(nextProps,nextState){
@@ -36,45 +18,36 @@ class Article extends React.Component {
     // }
     
     onLikePost(){
-      if(this.state.isLiked !== true){
+      if(this.state.isLiked){
+        this.setState({
+          like: this.state.like - 1,
+          isLiked: false
+        })
+      } else{
         this.setState({
           like: this.state.like + 1,
           isLiked: true
         })
-      } else{
-          this.setState({
-            like: this.state.like - 1,
-            isLiked: false
-
-          })
       }
-
-    }
-
-    onOpenComment(){
-      this.setState({
-        isOpenComment:!this.state.isOpenComment
-      })
     }
 
     render() { 
-      console.log("----------------------","render")
-      const { article,isOpen, onButtonClick } = this.props;
-      console.log(isOpen)
+      const { article, onButtonClick, isOpenComment } = this.props;
       return (
         <div className="d-flex flex-column">
           
-          <div className='card mb-3'>
+          <div className='card mt-4'>
             <h3 className='card-header'>
-              {article.title}    
-              <button className='btn btn-primary btn-sm float-end' onClick={onButtonClick}> {isOpen ? "Close": "Open"} </button>   
+              {article.title}      
             </h3>
 
             <div className="card-body">
               <p className='card-subtitle text-muted mb-3'> 
                 creation date: {this.state.date} 
               </p>
-              {isOpen && <section className='card-text mb-3'>{article.text} <Tic/> </section>}
+              <section className='card-text mb-3'>
+                {article.text} 
+              </section>
             </div>
 
             <div className="card-footer">
@@ -85,17 +58,12 @@ class Article extends React.Component {
               </button>
               <button 
                 className='btn bi bi-chat-right'
-                onClick={()=>this.onOpenComment()}>
+                onClick={onButtonClick}>
               </button>
             </div>
           </div>
 
-          {this.state.isOpenComment && <div className='card mb-3'>
-              <div className="card-body">
-                asdasd
-              </div>
-          </div>}
-          
+          {isOpenComment &&  <Comment/>}
         </div>
       );
     }
