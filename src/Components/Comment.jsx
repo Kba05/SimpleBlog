@@ -17,6 +17,9 @@ class Comment extends React.Component{
     }
 
     onSendComment(){
+        if(this.state.tempText.length === 0){
+            return
+        }
         const temObj={
             id: Math.floor(Math.random( ) * (100+1)),
             date: new Date().toUTCString(),
@@ -26,6 +29,7 @@ class Comment extends React.Component{
             tempText:"",
             comments: this.state.comments.concat(temObj)
         })
+       
     }
 
     render(){
