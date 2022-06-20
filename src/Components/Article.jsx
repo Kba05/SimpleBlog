@@ -8,7 +8,8 @@ class Article extends React.Component {
       this.state = {
         date: new Date().toDateString(),
         like: 0,
-        isLiked: false
+        isLiked: false,
+        comments: []
       };
     }
 
@@ -29,6 +30,12 @@ class Article extends React.Component {
           isLiked: true
         })
       }
+    }
+
+    onSendComment(temObj){
+      this.setState({
+        comments: this.state.comments.concat(temObj)
+      })
     }
 
     render() { 
@@ -54,16 +61,17 @@ class Article extends React.Component {
               <button 
                 className={!this.state.isLiked?'btn bi bi-hand-thumbs-up':'btn bi bi-hand-thumbs-up-fill'} 
                 onClick={()=>this.onLikePost()}>
-                  {this.state.like}
+                  &nbsp; {this.state.like}
               </button>
               <button 
                 className='btn bi bi-chat-right'
                 onClick={onButtonClick}>
+                  &nbsp;{this.state.comments.length}
               </button>
             </div>
           </div>
 
-          {isOpenComment &&  <Comment/>}
+          {isOpenComment &&  <Comment comments={this.state.comments} onSendComment={ this.onSendComment.bind(this)}/>}
         </div>
       );
     }

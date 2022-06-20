@@ -6,7 +6,7 @@ class Comment extends React.Component{
         super(props)
         this.state ={
             tempText:"",
-            comments: []
+            // comments: []
         }
     }
 
@@ -16,7 +16,7 @@ class Comment extends React.Component{
         })
     }
 
-    onSendComment(){
+    onClickSendComment(){
         if(this.state.tempText.length === 0){
             return
         }
@@ -25,15 +25,16 @@ class Comment extends React.Component{
             date: new Date().toUTCString(),
             text: this.state.tempText
         }
+        this.props.onSendComment(temObj);
         this.setState({
             tempText:"",
-            comments: this.state.comments.concat(temObj)
+            // comments: this.state.comments.concat(temObj)
         })
        
     }
 
     render(){
-        const commetsList = this.state.comments.map(function(comment,index){
+        const commetsList = this.props.comments.map(function(comment,index){
             return (
                 <li key={comment.id}> 
                     <p className='text-secondary'>{comment.date}</p> 
@@ -47,7 +48,7 @@ class Comment extends React.Component{
                     <p>Вы тут: <Tic/></p> 
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" value={this.state.tempText} onChange={(e)=>this.onChangeInput(e)}/>
-                        <button className="btn btn-outline-secondary bi bi-send" onClick={(e)=>this.onSendComment(e)}></button>
+                        <button className="btn btn-outline-secondary bi bi-send" onClick={(e)=>this.onClickSendComment(e)}></button>
                     </div>
                     <ul >
                         {commetsList}
